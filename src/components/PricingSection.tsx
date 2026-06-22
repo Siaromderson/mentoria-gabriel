@@ -17,6 +17,7 @@ interface Plan {
   waMessage: string
   highlighted?: boolean
   badge?: string
+  aura: string // cor da aura sutil (bronze, prata, ouro, diamante)
 }
 
 const plans: Plan[] = [
@@ -28,12 +29,13 @@ const plans: Plan[] = [
     tier: 0,
     features: [
       '1h de mentoria individual',
-      'Gravação + transcrição e resumo da call',
+      'Gravação da call',
       'Dúvidas no WhatsApp não consomem suas horas',
     ],
-    highlights: ['1h de mentoria individual', 'Gravação, transcrição e resumo'],
+    highlights: ['1h de mentoria individual', 'Gravação da call'],
     cta: 'Tenho Interesse',
     waMessage: 'Olá Gabriel, tenho interesse no pacote de 1 hora avulsa!',
+    aura: '#CD7F32', // bronze
   },
   {
     name: 'Pacote 3 Horas',
@@ -52,6 +54,7 @@ const plans: Plan[] = [
     highlights: ['3h de mentoria individual', 'Horas vitalícias — nunca expiram'],
     cta: 'Tenho Interesse',
     waMessage: 'Olá Gabriel, tenho interesse no pacote de 3 horas (R$ 500)!',
+    aura: '#C7CDD4', // prata
   },
   {
     name: 'Pacote 5 Horas',
@@ -74,6 +77,7 @@ const plans: Plan[] = [
     waMessage: 'Olá Gabriel, tenho interesse no pacote de 5 horas!',
     highlighted: true,
     badge: 'Mais Popular',
+    aura: '#D4AF37', // ouro
   },
   {
     name: 'Pacote 10 Horas',
@@ -92,6 +96,7 @@ const plans: Plan[] = [
     highlights: ['Acompanhamento estratégico', 'Suporte prioritário'],
     cta: 'Tenho Interesse',
     waMessage: 'Olá Gabriel, tenho interesse no pacote de 10 horas!',
+    aura: '#9FE7F5', // diamante
   },
 ]
 
@@ -99,15 +104,18 @@ const plans: Plan[] = [
 type Cell = boolean | string
 const matrix: { label: string; values: [Cell, Cell, Cell, Cell] }[] = [
   { label: 'Horas de mentoria individual', values: ['1h', '3h', '5h', '10h'] },
-  { label: 'Gravação + transcrição e resumo', values: [true, true, true, true] },
+  { label: 'Gravação da call', values: [true, true, true, true] },
+  { label: 'Transcrição e resumo da call', values: [false, true, true, true] },
   { label: 'WhatsApp sem consumir suas horas', values: [true, true, true, true] },
   { label: 'Horas vitalícias (nunca expiram)', values: [false, true, true, true] },
-  { label: 'Desconto progressivo', values: [false, '17%', '20%', '20%'] },
+  { label: 'Desconto progressivo', values: [false, '17%', '20%', '25%'] },
   { label: 'Acesso vitalício ao curso', values: [false, false, true, true] },
-  { label: 'Templates prontos de clientes reais (fluxos n8n)', values: [false, false, true, true] },
+  { label: 'Templates de clientes reais (fluxos n8n)', values: [false, '1 template', 'Biblioteca completa', 'Biblioteca completa'] },
+  { label: 'Revisão de fluxo/prompt entre sessões (assíncrono)', values: [false, false, true, true] },
   { label: 'Grupo exclusivo de mentorados', values: [false, false, true, true] },
   { label: 'Acompanhamento estratégico', values: [false, false, false, true] },
-  { label: 'Suporte prioritário', values: [false, false, false, true] },
+  { label: 'Roadmap de implementação personalizado', values: [false, false, false, true] },
+  { label: 'Suporte prioritário', values: [false, false, 'Até 24h', 'No mesmo dia'] },
   { label: 'Mentoria Black (preço promocional)', values: ['R$ 150', 'R$ 375', 'R$ 600', 'R$ 1.200'] },
 ]
 
@@ -179,11 +187,17 @@ export default function PricingSection() {
                 key={i}
                 delay={i * 80}
                 className={cn(
-                  'relative rounded-2xl p-6 flex flex-col transition-all duration-300 backdrop-blur-md',
+                  'group/card relative rounded-2xl p-6 flex flex-col transition-all duration-300 backdrop-blur-md',
                   plan.highlighted
-                    ? 'bg-[#04342C]/70 border-2 border-[#1D9E75] shadow-[0_0_40px_-6px_rgba(29,158,117,0.55)] lg:scale-[1.04] z-10'
-                    : 'bg-[#04342C]/55 border border-white/15 hover:border-emerald-300/50 hover:-translate-y-1.5',
+                    ? 'bg-[#04342C]/70 border-2 lg:scale-[1.04] z-10'
+                    : 'bg-[#04342C]/55 border hover:-translate-y-1.5',
                 )}
+                style={{
+                  borderColor: plan.highlighted ? plan.aura : `${plan.aura}40`,
+                  boxShadow: plan.highlighted
+                    ? `0 0 48px -8px ${plan.aura}66, inset 0 0 0 1px ${plan.aura}33`
+                    : `0 0 28px -10px ${plan.aura}59`,
+                }}
               >
                 {/* Badge */}
                 {plan.badge && (
