@@ -77,9 +77,9 @@ const plans: Plan[] = [
   },
   {
     name: 'Pacote 10 Horas',
-    price: 'R$ 1.600',
+    price: 'R$ 1.500',
     originalPrice: 'R$ 2.000',
-    discount: '20% OFF',
+    discount: '25% OFF',
     blackPrice: 'R$ 1.200',
     differential: 'Experiência completa: acompanhamento e prioridade máxima',
     tier: 3,
