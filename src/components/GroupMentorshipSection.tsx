@@ -10,6 +10,10 @@ import {
   MessageCircle,
   Flame,
   FileText,
+  CalendarDays,
+  CalendarClock,
+  LineChart,
+  MessageSquareText,
 } from 'lucide-react'
 import { waLink } from '@/lib/utils'
 import Reveal from '@/components/Reveal'
@@ -65,12 +69,36 @@ const includes = [
   },
 ]
 
+// Detalhes da próxima turma da Mentoria Black
+const turmaDetails = [
+  {
+    icon: CalendarDays,
+    label: 'Início',
+    value: 'Próximas aulas começam em Julho',
+  },
+  {
+    icon: CalendarClock,
+    label: 'Frequência',
+    value: '2 calls por semana, durante o mês',
+  },
+  {
+    icon: LineChart,
+    label: 'Acompanhamento',
+    value: 'Acompanhamento do projeto de cada um',
+  },
+  {
+    icon: MessageSquareText,
+    label: 'Comunidade',
+    value: 'Grupo de WhatsApp exclusivo da turma',
+  },
+]
+
 const checklist = [
+  'Início em Julho — 2 calls por semana, durante o mês',
   'Conteúdos específicos e aprofundados',
-  'Encontros ao vivo com participação',
+  'Acompanhamento do projeto de cada participante',
   'Gravação, transcrição e resumo de cada call',
-  'Análise individual do seu projeto',
-  'Grupo fechado da turma + grupo de mentorados',
+  'Grupo de WhatsApp exclusivo da turma',
 ]
 
 /**
@@ -229,8 +257,8 @@ export default function GroupMentorshipSection() {
           {/* Texto */}
           <Reveal className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 glass-dark text-emerald-100 text-sm font-medium px-4 py-2 rounded-full mb-6">
-              <Users className="w-4 h-4 text-emerald-300" />
-              Novidade · Mentoria em Grupo
+              <Flame className="w-4 h-4 text-emerald-300" />
+              Mentoria Black · Mentoria em Grupo
             </div>
             <h2 className="font-grotesk text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-5">
               Aprenda em Grupo,{' '}
@@ -250,7 +278,32 @@ export default function GroupMentorshipSection() {
               bastidores completos do meu processo de trabalho — do zero até a entrega.
             </p>
 
+            {/* Detalhes da próxima turma da Mentoria Black */}
             <div className="mt-8 glass-dark rounded-2xl p-6 text-left border border-emerald-300/20">
+              <p className="text-emerald-300 font-dm font-semibold text-xs uppercase tracking-widest mb-4">
+                Próxima turma · Mentoria Black
+              </p>
+              <ul className="grid sm:grid-cols-2 gap-4">
+                {turmaDetails.map((d, i) => {
+                  const Icon = d.icon
+                  return (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-lg gradient-cta flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-4 h-4 text-white" strokeWidth={1.75} />
+                      </div>
+                      <div>
+                        <p className="font-dm text-emerald-300/80 text-[11px] uppercase tracking-wider font-semibold">
+                          {d.label}
+                        </p>
+                        <p className="font-dm text-white text-sm leading-snug">{d.value}</p>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+
+            <div className="mt-6 glass-dark rounded-2xl p-6 text-left border border-emerald-300/20">
               <p className="text-emerald-300 font-dm font-semibold text-xs uppercase tracking-widest mb-2">
                 Projeto da turma
               </p>
