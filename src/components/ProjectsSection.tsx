@@ -116,6 +116,13 @@ export default function ProjectsSection() {
             Ao longo das aulas eu compartilho fluxos prontos de clientes reais e explico,
             passo a passo, como funciona a implementação de cada um.
           </p>
+          <a
+            href="#planos"
+            className="mt-5 inline-flex items-center gap-2 font-dm text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-full hover:bg-emerald-100 transition-colors duration-300"
+          >
+            <Workflow className="w-3.5 h-3.5 text-emerald-600" />
+            Templates prontos exclusivos a partir do Pacote 5 Horas
+          </a>
         </Reveal>
 
         {/* Carrossel com profundidade */}

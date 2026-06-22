@@ -107,7 +107,7 @@ export default function Navbar() {
           open ? 'max-h-[480px] mt-2 opacity-100' : 'max-h-0 opacity-0',
         )}
       >
-        <div className="glass-dark rounded-2xl p-3 max-w-6xl mx-auto">
+        <div className="mobile-menu-panel rounded-2xl p-3 max-w-6xl mx-auto">
           <ul className="flex flex-col">
             {links.map((link) => (
               <li key={link.href}>
