@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ElementType,
+  type ReactNode,
+} from 'react'
 import { cn } from '@/lib/utils'
 
 interface RevealProps {
@@ -8,6 +15,8 @@ interface RevealProps {
   className?: string
   /** Atraso em ms para escalonar a entrada de itens em sequência */
   delay?: number
+  /** Estilos extras mesclados ao transitionDelay */
+  style?: CSSProperties
   onMouseEnter?: () => void
   onMouseLeave?: () => void
 }
@@ -22,6 +31,7 @@ export default function Reveal({
   as,
   className,
   delay = 0,
+  style,
   onMouseEnter,
   onMouseLeave,
 }: RevealProps) {
@@ -52,7 +62,7 @@ export default function Reveal({
       ref={ref}
       data-reveal=""
       className={cn(visible && 'is-visible', className)}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      style={{ ...(delay ? { transitionDelay: `${delay}ms` } : {}), ...style }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
