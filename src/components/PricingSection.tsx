@@ -193,10 +193,10 @@ export default function PricingSection() {
                     : 'bg-[#04342C]/55 border hover:-translate-y-1.5',
                 )}
                 style={{
-                  borderColor: plan.highlighted ? plan.aura : `${plan.aura}40`,
+                  borderColor: plan.highlighted ? plan.aura : `${plan.aura}99`,
                   boxShadow: plan.highlighted
-                    ? `0 0 48px -8px ${plan.aura}66, inset 0 0 0 1px ${plan.aura}33`
-                    : `0 0 28px -10px ${plan.aura}59`,
+                    ? `0 0 70px -2px ${plan.aura}cc, 0 0 28px -4px ${plan.aura}aa, inset 0 0 22px -6px ${plan.aura}66`
+                    : `0 0 48px -4px ${plan.aura}b3, 0 0 18px -2px ${plan.aura}80`,
                 }}
               >
                 {/* Badge */}
