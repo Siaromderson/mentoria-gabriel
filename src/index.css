@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─────────────────────────────────────── */
+:root {
+  --emerald-glow:    #34d399;
+  --emerald-deep:    #059669;
+  --emerald-light:   #d1fae5;
+  --emerald-pastel:  #ecfdf5;
+
+  --gradient-hero:   linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 70%, #059669 100%);
+  --gradient-cta:    linear-gradient(135deg, #059669 0%, #34d399 100%);
+  --gradient-subtle: linear-gradient(180deg, #ecfdf5 0%, #ffffff 100%);
+  --gradient-alt:    linear-gradient(180deg, #ffffff 0%, #ecfdf5 60%, #d1fae5 100%);
+
+  --shadow-soft:     0 2px 20px 0 rgba(16, 185, 129, 0.08);
+  --shadow-card:     0 4px 32px 0 rgba(16, 185, 129, 0.12);
+  --shadow-glow:     0 0 40px 0 rgba(52, 211, 153, 0.30);
+}
+
+/* ─── Base Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Compensa o navbar fixo ao navegar por âncoras */
+section[id] {
+  scroll-margin-top: 96px;
+}
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background-color: #ffffff;
+  color: #111827;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ─── Utility Classes ────────────────────────────────────────────── */
+.gradient-hero {
+  background: var(--gradient-hero);
+}
+
+.gradient-cta {
+  background: var(--gradient-cta);
+}
+
+.gradient-subtle {
+  background: var(--gradient-subtle);
+}
+
+.gradient-alt {
+  background: var(--gradient-alt);
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+.shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+.shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+/* ─── Glass surfaces ─────────────────────────────────────────────── */
+/* Light glass — usado sobre fundos claros */
+.glass-surface {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Glass card claro com brilho suave */
+.glass-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 40px -8px rgba(6, 95, 70, 0.15), inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Glass escuro — usado sobre o gradiente emerald do hero/CTA */
+.glass-dark {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 40px -8px rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Borda gradiente em destaque (cards "premium") */
+.glass-border-glow {
+  position: relative;
+}
+.glass-border-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(110, 231, 183, 0.9), rgba(16, 185, 129, 0.1) 50%, rgba(52, 211, 153, 0.7));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.text-gradient {
+  background: var(--gradient-cta);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Animações ──────────────────────────────────────────────────── */
+/* Reveal on scroll — controlado por IntersectionObserver (data-reveal) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .animate-float,
+  .animate-float-slow,
+  .animate-gradient-pan,
+  .animate-shimmer,
+  .animate-marquee,
+  .animate-sea-sway,
+  .liquid-crest,
+  .liquid-crest-slow {
+    animation: none !important;
+  }
+}
+
+/* Orbs flutuantes */
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-24px) scale(1.05); }
+}
+.animate-float      { animation: float 8s ease-in-out infinite; }
+.animate-float-slow { animation: float 12s ease-in-out infinite; }
+
+/* Gradiente animado (background-position) */
+@keyframes gradientPan {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-gradient-pan {
+  background-size: 200% 200%;
+  animation: gradientPan 12s ease infinite;
+}
+
+/* Shimmer — passa um brilho sobre o elemento */
+@keyframes shimmer {
+  0%   { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(250%) skewX(-20deg); }
+}
+.animate-shimmer { animation: shimmer 3.5s ease-in-out infinite; }
+
+/* Esteira de logos (marquee horizontal) */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Ondas fluidas do mar dourado (superfície do líquido) */
+@keyframes liquidWave {
+  from { background-position-x: 0; }
+  to   { background-position-x: 200px; }
+}
+.liquid-crest {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='44' viewBox='0 0 200 44' preserveAspectRatio='none'%3E%3Cpath d='M0 22 C 40 2 60 2 100 22 C 140 42 160 42 200 22 L200 44 L0 44 Z' fill='%23fcd34d'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 200px 44px;
+  animation: liquidWave 11s linear infinite;
+}
+.liquid-crest-slow {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='44' viewBox='0 0 200 44' preserveAspectRatio='none'%3E%3Cpath d='M0 26 C 50 6 70 46 100 26 C 140 4 170 36 200 26 L200 44 L0 44 Z' fill='%23f59e0b'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 200px 44px;
+  animation: liquidWave 17s linear infinite reverse;
+}
+
+/* Balanço do "mar" dourado — bate de uma borda à outra, com fluidez */
+@keyframes seaSway {
+  0%   { transform: translateX(-7%); }
+  50%  { transform: translateX(7%); }
+  100% { transform: translateX(-7%); }
+}
+.animate-sea-sway {
+  animation: seaSway 9s ease-in-out infinite;
+}
+
+/* ─── Ícones animados da seção "Abordagem" (motion design) ─────────── */
+.anim-svg * {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Arquivo entrando na pasta */
+@keyframes focusFileDrop {
+  0%   { transform: translateY(-7px) scale(0.85); opacity: 0; }
+  22%  { opacity: 1; }
+  55%  { transform: translateY(1px) scale(1); opacity: 1; }
+  82%  { transform: translateY(5px) scale(0.94); opacity: 0.5; }
+  100% { transform: translateY(7px) scale(0.85); opacity: 0; }
+}
+@keyframes focusFolderBounce {
+  0%, 100% { transform: translateY(0); }
+  55%      { transform: translateY(1.4px); }
+}
+.focus-card:hover .anim-file {
+  animation: focusFileDrop 1.4s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+.focus-card:hover .anim-folder {
+  animation: focusFolderBounce 1.4s ease-in-out infinite;
+}
+
+/* Mãozinha assinando o contrato */
+.anim-sign {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+}
+@keyframes focusSignDraw {
+  0%   { stroke-dashoffset: 30; }
+  55%  { stroke-dashoffset: 0; }
+  88%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 30; }
+}
+@keyframes focusHandSign {
+  0%   { transform: translate(-5px, -2px) rotate(-6deg); }
+  55%  { transform: translate(4px, 1px) rotate(-6deg); }
+  72%  { transform: translate(4px, 1px) rotate(-6deg); }
+  100% { transform: translate(-5px, -2px) rotate(-6deg); }
+}
+.focus-card:hover .anim-sign {
+  animation: focusSignDraw 1.9s ease-in-out infinite;
+}
+.focus-card:hover .anim-hand {
+  animation: focusHandSign 1.9s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+
+/* Cérebro pulsando + sinapses */
+@keyframes focusBrainPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.1); }
+}
+@keyframes focusNode {
+  0%, 100% { opacity: 0.25; transform: scale(0.6); }
+  50%      { opacity: 1; transform: scale(1); }
+}
+.focus-card:hover .anim-brain {
+  animation: focusBrainPulse 1.5s ease-in-out infinite;
+}
+.focus-card:hover .anim-node {
+  animation: focusNode 1.2s ease-in-out infinite;
+}
+.focus-card:hover .anim-node-2 { animation-delay: 0.25s; }
+.focus-card:hover .anim-node-3 { animation-delay: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-card:hover .anim-file,
+  .focus-card:hover .anim-folder,
+  .focus-card:hover .anim-sign,
+  .focus-card:hover .anim-hand,
+  .focus-card:hover .anim-brain,
+  .focus-card:hover .anim-node {
+    animation: none !important;
+  }
+}
+
+/* Pulso de glow suave */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 30px 0 rgba(52, 211, 153, 0.25); }
+  50%      { box-shadow: 0 0 55px 6px rgba(52, 211, 153, 0.45); }
+}
+.animate-glow-pulse { animation: glowPulse 3.5s ease-in-out infinite; }
+
+/* ─── Benefits — ícone que "acende" no hover (gradiente + glow) ───── */
+.benefit-card:hover .benefit-icon {
+  background: var(--gradient-cta);
+  box-shadow: var(--shadow-glow);
+}
+.benefit-card:hover .benefit-icon-svg {
+  color: #ffffff;
+}
+
+/* ─── Accordion Override ─────────────────────────────────────────── */
+[data-state="open"] .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+.accordion-chevron {
+  transition: transform 0.3s ease;
+}

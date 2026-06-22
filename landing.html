@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentoria On-Demand | Engenharia de Automação com IA — Gabriel Lima</title>
+  <meta name="description" content="Mentoria individual on-demand com Gabriel Lima, Professor na AI Makers. Aprenda engenharia de automação com IA, feche contratos lucrativos e organize seus projetos com quem faz isso no dia a dia." />
+  <meta name="author" content="Gabriel Lima" />
+  <meta property="og:title" content="Mentoria On-Demand | Engenharia de Automação com IA — Gabriel Lima" />
+  <meta property="og:description" content="Aprenda a construir fluxos complexos, fechar contratos lucrativos e organizar seus projetos com quem faz isso no dia a dia." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            grotesk: ['"Space Grotesk"', 'sans-serif'],
+            dm: ['"DM Sans"', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --gradient-hero: linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 70%, #059669 100%);
+      --gradient-cta:  linear-gradient(135deg, #059669 0%, #34d399 100%);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #fff;
+      color: #111827;
+    }
+
+    h1,h2,h3,h4,h5 { font-family: 'Space Grotesk', sans-serif; }
+
+    /* gradients */
+    .gradient-hero { background: var(--gradient-hero); }
+    .gradient-cta  { background: var(--gradient-cta); }
+    .gradient-subtle { background: linear-gradient(180deg,#ecfdf5 0%,#fff 100%); }
+    .gradient-alt    { background: linear-gradient(180deg,#fff 0%,#ecfdf5 60%,#d1fae5 100%); }
+
+    /* shadows */
+    .shadow-soft { box-shadow: 0 2px 20px rgba(16,185,129,.08); }
+    .shadow-card { box-shadow: 0 4px 32px rgba(16,185,129,.12); }
+    .shadow-glow { box-shadow: 0 0 40px rgba(52,211,153,.30); }
+
+    /* text gradient */
+    .text-grad {
+      background: var(--gradient-cta);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* accordion */
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s ease;
+    }
+    .acc-body.open { max-height: 200px; }
+    .acc-chevron { transition: transform .3s ease; }
+    .acc-chevron.open { transform: rotate(180deg); }
+
+    /* hover cards */
+    .card-hover {
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 40px rgba(52,211,153,.30);
+    }
+
+    /* orb decorations */
+    .orb {
+      position: absolute;
+      border-radius: 9999px;
+      pointer-events: none;
+    }
+
+    /* btn */
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gradient-cta);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 14px 32px;
+      border-radius: 16px;
+      text-decoration: none;
+      box-shadow: 0 0 40px rgba(52,211,153,.30);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .btn-wa:hover { transform: scale(1.05); box-shadow: 0 0 56px rgba(52,211,153,.45); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 2px solid #059669;
+      color: #059669;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      background: transparent;
+      transition: background .2s, color .2s;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-outline:hover { background: #ecfdf5; }
+
+    .btn-cta-price {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--gradient-cta);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 24px rgba(52,211,153,.25);
+      width: 100%;
+      text-align: center;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-cta-price:hover { transform: scale(1.03); }
+
+    /* badge pulse */
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .pulse { animation: pulse 2s ease-in-out infinite; }
+
+    /* fade-up */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .fade-up { animation: fadeUp .7s ease-out forwards; }
+
+    /* bounce */
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+    .bounce { animation: bounce 1.5s ease-in-out infinite; }
+
+    /* icon box */
+    .icon-box {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: #ecfdf5;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      transition: background .3s;
+    }
+    .card-hover:hover .icon-box { background: #d1fae5; }
+
+    .icon-box-cta {
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      background: var(--gradient-cta);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      transition: transform .3s;
+    }
+    .card-hover:hover .icon-box-cta { transform: scale(1.1); }
+
+    /* pricing card */
+    .price-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ecfdf5;
+      box-shadow: 0 4px 32px rgba(16,185,129,.12);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .price-card:hover { transform: translateY(-4px); box-shadow: 0 0 40px rgba(52,211,153,.25); }
+    .price-card.featured {
+      border: 2px solid #059669;
+      box-shadow: 0 0 40px rgba(52,211,153,.30);
+      transform: scale(1.02);
+    }
+    .price-card.featured:hover { transform: scale(1.02) translateY(-4px); }
+
+    /* testimonial placeholder */
+    .test-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1.5px dashed #a7f3d0;
+      box-shadow: 0 4px 32px rgba(16,185,129,.07);
+      gap: 16px;
+    }
+
+    /* section label */
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #059669;
+      margin-bottom: 12px;
+    }
+
+    /* responsive grid */
+    @media (min-width: 768px) {
+      .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+      .grid-2-3 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .grid-pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
+    }
+    @media (max-width: 767px) {
+      .grid-3, .grid-2-3, .grid-pricing { display: flex; flex-direction: column; gap: 20px; }
+      .price-card.featured { transform: none; }
+    }
+
+    /* check item */
+    .check-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+    .check-circle {
+      width: 20px; height: 20px; min-width: 20px;
+      border-radius: 9999px;
+      background: #d1fae5;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .check-circle svg { width: 11px; height: 11px; stroke: #059669; stroke-width: 2.5; fill: none; }
+
+    /* avatar badge */
+    .avatar-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 16px;
+      padding: 12px 20px;
+      backdrop-filter: blur(12px);
+    }
+    .avatar {
+      width: 36px; height: 36px;
+      border-radius: 9999px;
+      background: var(--gradient-cta);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: .8rem;
+      color: #fff;
+    }
+
+    /* tag pill */
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #a7f3d0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .85rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      backdrop-filter: blur(8px);
+      margin-bottom: 32px;
+    }
+
+    .divider { border: none; border-top: 1px solid #ecfdf5; margin: 20px 0; }
+
+    footer { background: #022c22; }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════
+     1. HERO
+═══════════════════════════════════════════ -->
+<section class="gradient-hero" style="position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;">
+  <div class="orb" style="top:-128px;left:-128px;width:500px;height:500px;background:radial-gradient(circle,rgba(52,211,153,.2) 0%,transparent 70%);"></div>
+  <div class="orb" style="bottom:-96px;right:-96px;width:400px;height:400px;background:radial-gradient(circle,rgba(110,231,183,.15) 0%,transparent 70%);"></div>
+
+  <div style="position:relative;z-index:10;max-width:860px;margin:0 auto;padding:96px 24px;text-align:center;" class="fade-up">
+    <!-- Tag -->
+    <div class="tag-pill">
+      <span class="pulse" style="display:inline-block;width:8px;height:8px;border-radius:9999px;background:#34d399;"></span>
+      Mentoria On-Demand
+    </div>
+
+    <!-- Headline -->
+    <h1 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:24px;">
+      O Atalho para a
+      <span class="text-grad"> Engenharia de Automação</span>
+      de Alto Nível
+    </h1>
+
+    <!-- Subheadline -->
+    <p style="font-size:clamp(1rem,2vw,1.2rem);color:rgba(209,250,229,.9);max-width:640px;margin:0 auto 32px;line-height:1.7;">
+      Aprenda a construir fluxos complexos, fechar contratos lucrativos e organizar seus projetos com quem faz isso no dia a dia.
+    </p>
+
+    <!-- Author badge -->
+    <div style="display:flex;justify-content:center;margin-bottom:40px;">
+      <div class="avatar-badge">
+        <div class="avatar">GL</div>
+        <div style="text-align:left;">
+          <p style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;color:#fff;line-height:1.2;">Gabriel Lima</p>
+          <p style="margin:0;font-family:'DM Sans',sans-serif;font-size:.75rem;color:#6ee7b7;margin-top:2px;">Professor na AI Makers</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <a href="https://wa.me/5569993959114?text=Ol%C3%A1%20Gabriel%2C%20tenho%20interesse%20na%20mentoria!" target="_blank" rel="noopener" class="btn-wa">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      Falar no WhatsApp
+    </a>
+
+    <!-- Scroll hint -->
+    <div class="bounce" style="margin-top:64px;display:flex;justify-content:center;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(52,211,153,.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     2. BENEFITS
+═══════════════════════════════════════════ -->
+<section class="gradient-subtle" style="padding:96px 24px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;">
+      <p class="section-label">Tudo incluído</p>
+      <h2 style="font-size:clamp(1.75rem,3vw,2.5rem);font-weight:700;color:#111827;margin:0;">O Que Você Recebe</h2>
+    </div>
+
+    <div class="grid-2-3" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+
+      <!-- Card 1 -->
+      <div class="card-hover" style="background:#fff;border-radius:20px;padding:28px;border:1px solid #ecfdf5;" class="shadow-card">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+        </div>
+        <h3 style="font-size:1.05rem;font-weight:600;color:#111827;margin:0 0 8px;">Mentoria Individual Gravada</h3>
+        <p style="font-size:.875rem;color:#6b7280;line-height:1.65;margin:0;">Cada sessão é gravada e entregue para você revisar quando quiser, no seu ritmo.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card-hover" style="background:#fff;border-radius:20px;padding:28px;border:1px solid #ecfdf5;box-shadow:0 4px 32px rgba(16,185,129,.1);">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        </div>
+        <h3 style="font-size:1.05rem;font-weight:600;color:#111827;margin:0 0 8px;">Horas que Não Expiram</h3>
+        <p style="font-size:.875rem;color:#6b7280;line-height:1.65;margin:0;">Use suas horas sem pressão. Elas ficam disponíveis até você precisar.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card-hover" style="background:#fff;border-radius:20px;padding:28px;border:1px solid #ecfdf5;box-shadow:0 4px 32px rgba(16,185,129,.1);">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+        </div>
+        <h3 style="font-size:1.05rem;font-weight:600;color:#111827;margin:0 0 8px;">Acesso Vitalício ao Curso</h3>
+        <p style="font-size:.875rem;color:#6b7280;line-height:1.65;margin:0;">Acesso permanente ao conteúdo do curso, incluindo todas as atualizações futuras.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card-hover" style="background:#fff;border-radius:20px;padding:28px;border:1px solid #ecfdf5;box-shadow:0 4px 32px rgba(16,185,129,.1);">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </div>
+        <h3 style="font-size:1.05rem;font-weight:600;color:#111827;margin:0 0 8px;">Grupo VIP de Networking</h3>
+        <p style="font-size:.875rem;color:#6b7280;line-height:1.65;margin:0;">Entre em um grupo exclusivo com outros profissionais de automação de alto nível.</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="card-hover" style="background:#fff;border-radius:20px;padding:28px;border:1px solid #ecfdf5;box-shadow:0 4px 32px rgba(16,185,129,.1);grid-column:auto;">
+        <div class="icon-box">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+        </div>
+        <h3 style="font-size:1.05rem;font-weight:600;color:#111827;margin:0 0 8px;">Suporte via WhatsApp</h3>
+        <p style="font-size:.875rem;color:#6b7280;line-height:1.65;margin:0;">Tire dúvidas rápidas pelo WhatsApp entre as sessões para não travar no projeto.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     3. FOCUS
+═══════════════════════════════════════════ -->
+<section style="background:#fff;padding:96px 24px;">
+  <div style="max-width:960px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:16px;">
+      <p class="section-label">Abordagem</p>
+      <h2 style="font-size:clamp(1.75rem,3vw,2.5rem);font-weight:700;color:#111827;margin:0 0 16px;">Foco Estratégico e Técnico</h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:1.05rem;color:#6b7280;max-width:480px;margin:0 auto 48px;">Não vamos apenas "mexer em nodes". Eu vou te ajudar a:</p>
+    </div>
+
+    <div class="grid-3">
+
+      <!-- Card 1 -->
+      <div class="card-hover" style="background:#fff;border-radius:20px;padding:32px;text-align:center;border:1px solid #ecfdf5;box-shadow:0 4px 32px rgba(16,185,129,.1);">
+        <div class="icon-box-cta">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line><circle cx="12" cy="12" r="10"></circle></svg>
+        </div>
+        <h3 style="font-size:1.05rem;font-weight:600;color:#111827;margin:0 0 10px;">Dominar o Raciocínio Lógico</h3>
+        <p style="font-size:.875rem;color:#6b7280;line-height:1.65;margin:0;">Desenvolva o pensamento sistêmico para estruturar qualquer automação, do simples ao altamente complexo.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card-hover" style="background:#fff;border-radius:20px;padding:32px;text-align:center;border:1px solid #ecfdf5;box-shadow:0 4px 32px rgba(16,185,129,.1);">
+        <div class="icon-box-cta">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg>
+        </div>
+        <h3 style="font-size:1.05rem;font-weight:600;color:#111827;margin:0 0 10px;">Fechar Contratos</h3>
+        <p style="font-size:.875rem;color:#6b7280;line-height:1.65;margin:0;">Aprenda a precificar, apresentar e fechar projetos de automação com clientes que pagam bem.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card-hover" style="background:#fff;border-radius:20px;padding:32px;text-align:center;border:1px solid #ecfdf5;box-shadow:0 4px 32px rgba(16,185,129,.1);">
+        <div class="icon-box-cta">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3 style="font-size:1.05rem;font-weight:600;color:#111827;margin:0 0 10px;">Organizar Projetos</h3>
+        <p style="font-size:.875rem;color:#6b7280;line-height:1.65;margin:0;">Estruture sua operação com processos claros, documentação e gestão que escalam sem virar caos.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     4. TESTIMONIALS
+═══════════════════════════════════════════ -->
+<section class="gradient-alt" style="padding:96px 24px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;">
+      <p class="section-label">Resultados reais</p>
+      <h2 style="font-size:clamp(1.75rem,3vw,2.5rem);font-weight:700;color:#111827;margin:0;">O Que Os Mentorados Dizem</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="test-card">
+        <div style="width:48px;height:48px;border-radius:9999px;background:#ecfdf5;display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a7f3d0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:.85rem;color:#9ca3af;font-style:italic;margin:0;">Aguardando print do depoimento...</p>
+      </div>
+      <div class="test-card">
+        <div style="width:48px;height:48px;border-radius:9999px;background:#ecfdf5;display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a7f3d0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:.85rem;color:#9ca3af;font-style:italic;margin:0;">Aguardando print do depoimento...</p>
+      </div>
+      <div class="test-card">
+        <div style="width:48px;height:48px;border-radius:9999px;background:#ecfdf5;display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a7f3d0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <p style="font-family:'DM Sans',sans-serif;font-size:.85rem;color:#9ca3af;font-style:italic;margin:0;">Aguardando print do depoimento...</p>
+      </div>
+    </div>
+    <p style="text-align:center;font-family:'DM Sans',sans-serif;font-size:.75rem;color:#9ca3af;margin-top:28px;">Em breve os depoimentos dos mentorados serão exibidos aqui.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     5. PRICING
+═══════════════════════════════════════════ -->
+<section style="background:#fff;padding:96px 24px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:16px;">
+      <p class="section-label">Investimento</p>
+      <h2 style="font-size:clamp(1.75rem,3vw,2.5rem);font-weight:700;color:#111827;margin:0 0 16px;">Escolha Seu Pacote</h2>
+      <p style="font-family:'DM Sans',sans-serif;font-size:1rem;color:#6b7280;max-width:480px;margin:0 auto 56px;line-height:1.6;">
+        Consigo atender até <strong style="color:#374151;">10 mentorados por vez</strong>. Conforme vagas liberam, aviso quem está na fila por ordem de mensagem.
+      </p>
+    </div>
+
+    <div class="grid-pricing">
+
+      <!-- Plan 1: Hora Avulsa -->
+      <div class="price-card">
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;color:#111827;margin:0 0 16px;">Hora Avulsa</h3>
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;color:#111827;margin:0 0 4px;">R$ 200<span style="font-size:1rem;font-weight:400;font-family:'DM Sans',sans-serif;color:#9ca3af;">/hora</span></p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:.8rem;color:#059669;font-weight:500;margin:0 0 20px;">Alunos Mentoria Black: <strong>R$ 150</strong></p>
+        <hr class="divider">
+        <div style="flex:1;margin-bottom:24px;">
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">1h de mentoria individual</span></div>
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">Sessão gravada</span></div>
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">Suporte via WhatsApp</span></div>
+        </div>
+        <a href="https://wa.me/5569993959114?text=Ol%C3%A1%20Gabriel%2C%20tenho%20interesse%20no%20pacote%20de%201%20hora%20avulsa!" target="_blank" rel="noopener" class="btn-outline">Tenho Interesse</a>
+      </div>
+
+      <!-- Plan 2: 5 Horas (Featured) -->
+      <div class="price-card featured" style="position:relative;">
+        <!-- Badge -->
+        <div style="position:absolute;top:-16px;left:50%;transform:translateX(-50%);">
+          <span style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#059669,#34d399);color:#fff;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;padding:6px 16px;border-radius:9999px;box-shadow:0 0 24px rgba(52,211,153,.35);white-space:nowrap;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Mais Popular
+          </span>
+        </div>
+
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;color:#111827;margin:0 0 12px;">Pacote 5 Horas</h3>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:.85rem;color:#9ca3af;text-decoration:line-through;">R$ 1.000</span>
+          <span style="font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;color:#059669;background:#ecfdf5;padding:2px 8px;border-radius:9999px;">20% OFF</span>
+        </div>
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;color:#111827;margin:0 0 4px;">R$ 800</p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:.8rem;color:#059669;font-weight:500;margin:0 0 20px;">Alunos Mentoria Black: <strong>R$ 600</strong></p>
+        <hr class="divider">
+        <div style="flex:1;margin-bottom:24px;">
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">5h de mentoria individual</span></div>
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">Horas sem expiração</span></div>
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">Sessões gravadas</span></div>
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">Acesso vitalício ao curso</span></div>
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">Grupo VIP de networking</span></div>
+        </div>
+        <a href="https://wa.me/5569993959114?text=Ol%C3%A1%20Gabriel%2C%20tenho%20interesse%20no%20pacote%20de%205%20horas!" target="_blank" rel="noopener" class="btn-cta-price">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Tenho Interesse
+        </a>
+      </div>
+
+      <!-- Plan 3: 10 Horas -->
+      <div class="price-card">
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;color:#111827;margin:0 0 12px;">Pacote 10 Horas</h3>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:.85rem;color:#9ca3af;text-decoration:line-through;">R$ 2.000</span>
+          <span style="font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600;color:#059669;background:#ecfdf5;padding:2px 8px;border-radius:9999px;">20% OFF</span>
+        </div>
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;color:#111827;margin:0 0 4px;">R$ 1.600</p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:.8rem;color:#059669;font-weight:500;margin:0 0 20px;">Alunos Mentoria Black: <strong>R$ 1.200</strong></p>
+        <hr class="divider">
+        <div style="flex:1;margin-bottom:24px;">
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">10h de mentoria individual</span></div>
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">Tudo do Pacote 5 Horas</span></div>
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">Acompanhamento estratégico</span></div>
+          <div class="check-item"><div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span style="font-family:'DM Sans',sans-serif;font-size:.875rem;color:#4b5563;">Suporte prioritário</span></div>
+        </div>
+        <a href="https://wa.me/5569993959114?text=Ol%C3%A1%20Gabriel%2C%20tenho%20interesse%20no%20pacote%20de%2010%20horas!" target="_blank" rel="noopener" class="btn-outline">Tenho Interesse</a>
+      </div>
+
+    </div>
+
+    <!-- Parcelas -->
+    <p style="text-align:center;font-family:'DM Sans',sans-serif;font-size:.875rem;color:#9ca3af;margin-top:40px;">
+      Parcelamento em até <strong style="color:#4b5563;">3x no cartão</strong> para os pacotes ou via <strong style="color:#4b5563;">PIX</strong>.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     6. FAQ
+═══════════════════════════════════════════ -->
+<section class="gradient-subtle" style="padding:96px 24px;">
+  <div style="max-width:680px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:56px;">
+      <p class="section-label">Dúvidas</p>
+      <h2 style="font-size:clamp(1.75rem,3vw,2.5rem);font-weight:700;color:#111827;margin:0;">Perguntas Frequentes</h2>
+    </div>
+
+    <!-- Accordion items -->
+    <div style="display:flex;flex-direction:column;gap:12px;">
+
+      <div class="acc-item" style="background:#fff;border-radius:16px;border:1px solid #ecfdf5;overflow:hidden;box-shadow:0 2px 20px rgba(16,185,129,.06);transition:border-color .3s,box-shadow .3s;">
+        <button onclick="toggleAcc(this)" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;text-align:left;background:none;border:none;cursor:pointer;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:#111827;font-size:1rem;">Como agendo minhas horas?</span>
+          <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="acc-body">
+          <p style="font-family:'DM Sans',sans-serif;font-size:.9rem;color:#6b7280;line-height:1.7;padding:0 24px 20px;margin:0;">Você me chama pelo WhatsApp com pelo menos 24 horas de antecedência e a gente combina o horário. É simples assim — sem sistema, sem burocracia.</p>
+        </div>
+      </div>
+
+      <div class="acc-item" style="background:#fff;border-radius:16px;border:1px solid #ecfdf5;overflow:hidden;box-shadow:0 2px 20px rgba(16,185,129,.06);transition:border-color .3s,box-shadow .3s;">
+        <button onclick="toggleAcc(this)" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;text-align:left;background:none;border:none;cursor:pointer;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:#111827;font-size:1rem;">Posso fracionar o tempo em blocos menores?</span>
+          <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="acc-body">
+          <p style="font-family:'DM Sans',sans-serif;font-size:.9rem;color:#6b7280;line-height:1.7;padding:0 24px 20px;margin:0;">Sim! O único requisito é que cada sessão tenha no mínimo 1 hora. Você pode usar suas horas em sessões separadas conforme a sua necessidade.</p>
+        </div>
+      </div>
+
+      <div class="acc-item" style="background:#fff;border-radius:16px;border:1px solid #ecfdf5;overflow:hidden;box-shadow:0 2px 20px rgba(16,185,129,.06);transition:border-color .3s,box-shadow .3s;">
+        <button onclick="toggleAcc(this)" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;text-align:left;background:none;border:none;cursor:pointer;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:#111827;font-size:1rem;">O conteúdo do curso é atualizado?</span>
+          <svg class="acc-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="acc-body">
+          <p style="font-family:'DM Sans',sans-serif;font-size:.9rem;color:#6b7280;line-height:1.7;padding:0 24px 20px;margin:0;">Sim, o conteúdo é atualizado semanalmente com projetos reais, novos fluxos e casos práticos. Você sempre terá acesso ao material mais recente sem custo adicional.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     7. CTA FINAL
+═══════════════════════════════════════════ -->
+<section class="gradient-hero" style="padding:96px 24px;position:relative;overflow:hidden;">
+  <div class="orb" style="top:0;right:0;width:350px;height:350px;background:radial-gradient(circle,rgba(110,231,183,.15) 0%,transparent 70%);"></div>
+  <div class="orb" style="bottom:0;left:0;width:300px;height:300px;background:radial-gradient(circle,rgba(52,211,153,.1) 0%,transparent 70%);"></div>
+
+  <div style="position:relative;z-index:10;max-width:640px;margin:0 auto;text-align:center;">
+    <div class="tag-pill" style="margin-bottom:28px;">
+      <span class="pulse" style="display:inline-block;width:8px;height:8px;border-radius:9999px;background:#34d399;"></span>
+      Disponível agora
+    </div>
+
+    <h2 style="font-size:clamp(1.75rem,3.5vw,2.8rem);font-weight:700;color:#fff;margin:0 0 20px;">Bora conversar?</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:1.1rem;color:rgba(209,250,229,.9);margin:0 auto 40px;max-width:480px;line-height:1.7;">
+      Me chama no WhatsApp, me conta o que você precisa e a gente combina o melhor formato.
+    </p>
+
+    <a href="https://wa.me/5569993959114?text=Ol%C3%A1%20Gabriel%2C%20tenho%20interesse%20na%20mentoria!" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;background:#fff;color:#059669;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1.1rem;padding:18px 40px;border-radius:18px;text-decoration:none;box-shadow:0 0 40px rgba(52,211,153,.30);transition:transform .3s,box-shadow .3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+      Chamar no WhatsApp
+    </a>
+
+    <p style="font-family:'DM Sans',sans-serif;font-size:.8rem;color:rgba(52,211,153,.5);margin-top:20px;">Respondo rápido — sem robôs, sem enrolação.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer style="background:#022c22;padding:28px 24px;">
+  <div style="max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="width:32px;height:32px;border-radius:9999px;background:linear-gradient(135deg,#059669,#34d399);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.75rem;color:#fff;">GL</div>
+      <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;color:#d1fae5;">Gabriel Lima</span>
+      <span style="color:#065f46;font-size:.75rem;">·</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:.75rem;color:#34d399;">Professor na AI Makers</span>
+    </div>
+    <p style="font-family:'DM Sans',sans-serif;font-size:.75rem;color:#065f46;margin:0;">© 2025 Mentoria On-Demand</p>
+  </div>
+</footer>
+
+
+<script>
+  function toggleAcc(btn) {
+    const item = btn.closest('.acc-item');
+    const body = item.querySelector('.acc-body');
+    const chevron = btn.querySelector('.acc-chevron');
+    const isOpen = body.classList.contains('open');
+
+    // close all
+    document.querySelectorAll('.acc-body.open').forEach(function(b) {
+      b.classList.remove('open');
+      b.closest('.acc-item').querySelector('.acc-chevron').classList.remove('open');
+      b.closest('.acc-item').style.borderColor = '#ecfdf5';
+      b.closest('.acc-item').style.boxShadow = '0 2px 20px rgba(16,185,129,.06)';
+    });
+
+    if (!isOpen) {
+      body.classList.add('open');
+      chevron.classList.add('open');
+      item.style.borderColor = '#6ee7b7';
+      item.style.boxShadow = '0 4px 32px rgba(16,185,129,.12)';
+    }
+  }
+</script>
+
+</body>
+</html>
